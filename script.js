@@ -99,3 +99,129 @@ if (nativeBtn) {
     }
   });
 }
+
+
+
+// ===== Premium v3 interactions =====
+const body = document.body;
+const themeToggle = document.querySelector(".theme-toggle");
+const savedTheme = localStorage.getItem("deem-theme");
+
+if (savedTheme === "dark") {
+  body.classList.add("dark-mode");
+}
+if (themeToggle) {
+  const updateThemeIcon = () => {
+    const dark = body.classList.contains("dark-mode");
+    themeToggle.textContent = dark ? "☀️" : "🌙";
+    themeToggle.title = dark ? "الوضع النهاري" : "الوضع الليلي";
+  };
+  updateThemeIcon();
+  themeToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    localStorage.setItem("deem-theme", body.classList.contains("dark-mode") ? "dark" : "light");
+    updateThemeIcon();
+  });
+}
+
+const welcome = document.querySelector("[data-welcome]");
+if (welcome && !sessionStorage.getItem("deem-welcomed")) {
+  welcome.classList.add("show");
+  welcome.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => {
+    welcome.classList.remove("show");
+    welcome.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    sessionStorage.setItem("deem-welcomed", "1");
+  }, 1900);
+}
+
+const dailyMessages = [
+  { text: "«وَمَا تُقَدِّمُوا لِأَنفُسِكُم مِّنْ خَيْرٍ تَجِدُوهُ عِندَ اللَّهِ»", source: "سورة البقرة، الآية 110" },
+  { text: "«مَّن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ أَضْعَافًا كَثِيرَةً»", source: "سورة البقرة، الآية 245" },
+  { text: "اللهم اجعلنا مفاتيح للخير، وسخّرنا لقضاء حوائج الناس وتفريج كربهم.", source: "دعاء اليوم" },
+  { text: "ربما تكون مساهمتك اليوم بداية أمل جديد لأسرة كاملة.", source: "رسالة ديم" },
+  { text: "«فَمَن يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ»", source: "سورة الزلزلة، الآية 7" },
+  { text: "اللهم بارك في كل يدٍ امتدت بالعطاء، وكل قلبٍ دلّ على الخير.", source: "دعاء اليوم" },
+  { text: "الخير لا يُقاس بحجمه، بل بالأثر الذي يتركه في حياة الآخرين.", source: "رسالة ديم" }
+];
+const dailyText = document.querySelector("[data-daily-text]");
+const dailySource = document.querySelector("[data-daily-source]");
+if (dailyText && dailySource) {
+  const start = new Date(new Date().getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((new Date() - start) / 86400000);
+  const message = dailyMessages[dayOfYear % dailyMessages.length];
+  dailyText.textContent = message.text;
+  dailySource.textContent = message.source;
+}
+
+const revealItems = document.querySelectorAll(".reveal");
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealItems.forEach(item => revealObserver.observe(item));
+} else {
+  revealItems.forEach(item => item.classList.add("visible"));
+}
+
+const counters = document.querySelectorAll("[data-counter]");
+if (counters.length) {
+  const countObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const element = entry.target;
+      const target = Number(element.dataset.counter || 0);
+      const duration = 900;
+      const started = performance.now();
+      const tick = now => {
+        const progress = Math.min((now - started) / duration, 1);
+        element.textContent = Math.round(target * progress).toLocaleString("ar-OM");
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      observer.unobserve(element);
+    });
+  }, { threshold: .5 });
+  counters.forEach(counter => countObserver.observe(counter));
+}
+
+const wall = document.querySelector("[data-kindness-wall]");
+const addHeart = document.querySelector("[data-add-heart]");
+if (wall) {
+  let heartCount = Math.max(12, Number(localStorage.getItem("deem-hearts") || 12));
+  const drawHearts = () => {
+    wall.innerHTML = "";
+    for (let i = 0; i < Math.min(heartCount, 80); i++) {
+      const heart = document.createElement("span");
+      heart.className = "kindness-heart";
+      heart.textContent = i % 5 === 0 ? "🤍" : "❤️";
+      heart.style.animationDelay = `${Math.min(i * 18, 450)}ms`;
+      wall.appendChild(heart);
+    }
+  };
+  drawHearts();
+  if (addHeart) {
+    addHeart.addEventListener("click", () => {
+      heartCount += 1;
+      localStorage.setItem("deem-hearts", String(heartCount));
+      drawHearts();
+      addHeart.textContent = "شكرًا لمساهمتك في نشر الخير ❤️";
+      setTimeout(() => addHeart.textContent = "أضف قلبًا للجدار ❤️", 1800);
+    });
+  }
+}
+
+const backToTop = document.querySelector(".back-to-top");
+if (backToTop) {
+  const updateBackToTop = () => backToTop.classList.toggle("show", window.scrollY > 500);
+  window.addEventListener("scroll", updateBackToTop, { passive: true });
+  updateBackToTop();
+  backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
