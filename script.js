@@ -62,3 +62,40 @@ if (countdownEl) {
   updateCountdown();
   setInterval(updateCountdown, 1000);
 }
+
+const shareTitle = "حالة الوالد حمد | فريق ديم الخيري";
+const shareText = "بعونكم نفك كربة الوالد حمد ونخفف عنه ثقل الدين.";
+const shareUrl = window.location.href;
+const shareNote = document.querySelector("[data-share-note]");
+
+const whatsappBtn = document.querySelector("[data-share-whatsapp]");
+if (whatsappBtn) {
+  whatsappBtn.href = `https://wa.me/?text=${encodeURIComponent(shareText + "\n" + shareUrl)}`;
+  whatsappBtn.target = "_blank";
+  whatsappBtn.rel = "noopener noreferrer";
+}
+
+const instagramBtn = document.querySelector("[data-share-instagram]");
+if (instagramBtn) {
+  instagramBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+      if (shareNote) shareNote.textContent = "تم نسخ النص والرابط. افتح إنستغرام والصقهما في القصة أو الرسائل.";
+      window.open("https://www.instagram.com/", "_blank", "noopener,noreferrer");
+    } catch {
+      if (shareNote) shareNote.textContent = "انسخ رابط الصفحة وشاركه يدويًا عبر إنستغرام.";
+    }
+  });
+}
+
+const nativeBtn = document.querySelector("[data-native-share]");
+if (nativeBtn) {
+  nativeBtn.addEventListener("click", async () => {
+    if (navigator.share) {
+      await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+    } else {
+      await navigator.clipboard.writeText(shareUrl);
+      if (shareNote) shareNote.textContent = "تم نسخ رابط الحالة.";
+    }
+  });
+}
