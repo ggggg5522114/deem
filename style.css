@@ -1,13 +1,14 @@
 :root{
-  --primary:#0d4d52;
-  --primary-dark:#08383c;
-  --gold:#a58355;
-  --cream:#f4efe4;
-  --soft:#f7f8f6;
-  --text:#17262b;
-  --muted:#66777a;
+  --primary:#0E4B4F;
+  --primary-dark:#08383B;
+  --gold:#B79A68;
+  --gold-dark:#8E744E;
+  --cream:#F5F0E6;
+  --soft:#EEF4F2;
+  --text:#183033;
+  --muted:#5F7173;
   --white:#ffffff;
-  --shadow:0 14px 40px rgba(10,54,58,.12);
+  --shadow:0 18px 45px rgba(8,56,59,.14);
   --radius:22px;
 }
 *{box-sizing:border-box}
@@ -516,3 +517,28 @@ img, video, iframe, svg {
     font-size: 4rem;
   }
 }
+
+
+/* ===== الهوية البصرية الجديدة المستوحاة من شعار ديم ===== */
+body{background:#FCFBF8;color:var(--text)}
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid rgba(183,154,104,.22);backdrop-filter:blur(12px)}
+.brand img{object-fit:contain;background:#000;border-radius:14px;padding:3px}
+.brand span,.main-nav a:hover,.main-nav a.active{color:var(--primary)}
+.menu-toggle{color:var(--primary);border-color:rgba(14,75,79,.2);background:var(--cream)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 12px 28px rgba(14,75,79,.22)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(14,75,79,.28)}
+.btn-secondary{color:var(--primary);border-color:var(--gold);background:rgba(255,255,255,.9)}
+.section-tag,.eyebrow,.case-number{color:var(--gold-dark)}
+.hero::before{background:linear-gradient(90deg,rgba(8,56,59,.92),rgba(8,56,59,.58))}
+.hero h1,.page-hero h1,.section-heading h2,.text-panel h2,.case-content h3,.case-story h2,.workshop-copy h2,.workshop-card h2{color:var(--primary-dark)}
+.page-hero{background:linear-gradient(135deg,var(--primary-dark),var(--primary))}
+.info-card,.contact-card,.featured-case,.case-story,.donation-card,.workshop-card,.workshop-banner{border:1px solid rgba(183,154,104,.16)}
+.progress-bar{background:#E7E1D6}
+.progress-fill{background:linear-gradient(90deg,var(--gold),var(--primary))}
+.workshop-highlight{background:linear-gradient(135deg,var(--cream),var(--soft))}
+.workshop-meta span,.workshop-icon,.workshop-section.benefit-box{background:var(--cream)}
+.workshop-detail,.workshop-section{background:var(--soft)}
+.site-footer{background:linear-gradient(135deg,#062F32,#0E4B4F);color:#fff}
+.site-footer a{color:#F1E3C5}
+.site-footer h3{color:#D9C39A}
+.contact-card span,.info-card span{color:var(--gold-dark)}
