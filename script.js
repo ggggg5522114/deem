@@ -6,6 +6,20 @@ if (menuButton && nav) {
     const isOpen = nav.classList.toggle("open");
     menuButton.setAttribute("aria-expanded", String(isOpen));
   });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      nav.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+  });
 }
 
 const year = document.getElementById("year");
