@@ -1,0 +1,139 @@
+:root{
+  --primary:#0d4d52;
+  --primary-dark:#08383c;
+  --gold:#a58355;
+  --cream:#f4efe4;
+  --soft:#f7f8f6;
+  --text:#17262b;
+  --muted:#66777a;
+  --white:#ffffff;
+  --shadow:0 14px 40px rgba(10,54,58,.12);
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:"Tajawal",sans-serif;
+  background:var(--white);
+  color:var(--text);
+  line-height:1.9;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92%);margin:auto}
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(13,77,82,.08);
+}
+.nav-wrap{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--primary);font-size:1.15rem}
+.brand img{width:58px;height:58px;object-fit:contain;background:#000;border-radius:10px}
+.main-nav{display:flex;gap:28px;align-items:center}
+.main-nav a{font-weight:700;position:relative}
+.main-nav a:after{content:"";position:absolute;right:0;bottom:-8px;width:0;height:2px;background:var(--gold);transition:.25s}
+.main-nav a:hover:after{width:100%}
+.menu-toggle{display:none;border:0;background:none;font-size:1.7rem;color:var(--primary)}
+.hero{
+  min-height:660px;
+  display:grid;place-items:center;
+  position:relative;
+  background:
+    linear-gradient(rgba(7,48,52,.74),rgba(7,48,52,.74)),
+    url("images/hamad-case.jpeg") center/cover;
+  color:white;
+}
+.hero-content{position:relative;z-index:2;max-width:780px;text-align:center}
+.eyebrow,.section-tag{
+  display:inline-block;
+  color:var(--gold);
+  font-weight:800;
+  letter-spacing:.4px;
+  margin-bottom:8px
+}
+.hero h1,.page-hero h1{font-size:clamp(2.2rem,6vw,4.8rem);line-height:1.25;margin:8px 0 16px}
+.hero p{font-size:1.25rem;max-width:720px;margin:0 auto 28px;color:#eef6f6}
+.hero-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:52px;padding:10px 24px;border-radius:14px;
+  font-weight:800;transition:.25s;border:1px solid transparent
+}
+.btn-primary{background:var(--gold);color:white}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(.96)}
+.btn-outline{border-color:white;color:white}
+.btn-outline:hover{background:white;color:var(--primary)}
+.btn-block{width:100%}
+.section{padding:90px 0}
+.soft-bg{background:var(--soft)}
+.section-heading{text-align:center;max-width:720px;margin:0 auto 38px}
+.section-heading span{color:var(--gold);font-weight:800}
+.section-heading h2,.text-panel h2{font-size:clamp(1.8rem,4vw,3rem);line-height:1.35;margin:5px 0 12px;color:var(--primary)}
+.section-heading p,.text-panel p{color:var(--muted)}
+.featured-case{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  border-radius:var(--radius);overflow:hidden;background:white;box-shadow:var(--shadow)
+}
+.case-image img{width:100%;height:100%;object-fit:cover}
+.case-content{padding:40px}
+.case-number{display:inline-block;background:var(--cream);color:var(--gold);padding:5px 12px;border-radius:999px;font-weight:800}
+.case-content h3,.case-story h2{font-size:2rem;color:var(--primary);margin:14px 0 8px}
+.amount-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.amount-row div{background:var(--soft);padding:14px;border-radius:14px}
+.amount-row small{display:block;color:var(--muted)}
+.amount-row strong{display:block;color:var(--primary);font-size:1.1rem}
+.progress{height:12px;background:#e4e8e7;border-radius:999px;overflow:hidden}
+.progress.large{height:16px;margin-top:20px}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),#c4a87d);border-radius:999px}
+.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;margin:7px 0 20px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.info-card,.contact-card{
+  background:white;border-radius:var(--radius);padding:30px;box-shadow:0 8px 28px rgba(10,54,58,.08)
+}
+.info-card .icon,.contact-card>span{font-size:2rem}
+.info-card h3,.contact-card h3{color:var(--primary);margin:8px 0}
+.page-hero{
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color:white;text-align:center;padding:95px 0
+}
+.page-hero p{max-width:700px;margin:auto;color:#dcebea}
+.two-columns{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.reverse .text-panel{order:2}
+.reverse .visual-panel{order:1}
+.visual-panel img{border-radius:var(--radius);box-shadow:var(--shadow)}
+.case-details{display:grid;grid-template-columns:1.45fr .8fr;gap:34px;align-items:start}
+.case-story,.donation-card{background:white;border-radius:var(--radius);padding:34px;box-shadow:var(--shadow)}
+.case-story p{color:var(--muted);font-size:1.08rem}
+blockquote{margin:26px 0 0;padding:18px 22px;border-right:4px solid var(--gold);background:var(--cream);font-weight:800;color:var(--primary)}
+.donation-card{position:sticky;top:105px}
+.donation-card h3{margin-top:0;color:var(--primary);font-size:1.5rem}
+.donation-stat{display:flex;justify-content:space-between;gap:15px;padding:12px 0;border-bottom:1px solid #edf0ef}
+.donation-stat span{color:var(--muted)}
+.donation-stat strong{color:var(--primary)}
+.note{font-size:.85rem;color:var(--muted);line-height:1.6}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.contact-card{text-align:center}
+.contact-card a{color:var(--gold);font-weight:800}
+.notice-box{margin-top:34px;background:var(--cream);padding:28px;border-radius:var(--radius);text-align:center}
+.site-footer{background:#082f33;color:#dce8e8;padding:50px 0 18px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr;gap:30px}
+.footer-grid h3{color:white}
+.footer-grid a{display:block;margin:7px 0}
+.copyright{text-align:center;border-top:1px solid rgba(255,255,255,.12);margin:28px 0 0;padding-top:18px;color:#b9caca}
+@media(max-width:800px){
+  .menu-toggle{display:block}
+  .main-nav{
+    display:none;position:absolute;top:78px;right:4%;left:4%;background:white;
+    padding:18px;border-radius:16px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch
+  }
+  .main-nav.open{display:flex}
+  .featured-case,.two-columns,.case-details,.footer-grid{grid-template-columns:1fr}
+  .reverse .text-panel,.reverse .visual-panel{order:initial}
+  .cards-grid,.contact-grid{grid-template-columns:1fr}
+  .amount-row{grid-template-columns:1fr}
+  .hero{min-height:580px}
+  .section{padding:65px 0}
+  .donation-card{position:static}
+}
