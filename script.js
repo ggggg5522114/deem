@@ -99,32 +99,3 @@ if (nativeBtn) {
     }
   });
 }
-
-
-// حركات ظهور العناصر عند دخولها إلى الشاشة
-const revealSelectors = [
-  ".section-heading", ".featured-case", ".workshop-banner", ".info-card",
-  ".about-intro-copy", ".about-quote", ".identity-card", ".value-card",
-  ".about-cta-box", ".case-story", ".donation-card", ".update-item",
-  ".case-share-card", ".workshop-card", ".contact-card", ".notice-box"
-];
-
-const revealElements = document.querySelectorAll(revealSelectors.join(","));
-revealElements.forEach((element, index) => {
-  element.dataset.reveal = "up";
-  element.style.setProperty("--reveal-delay", `${Math.min((index % 4) * 90, 270)}ms`);
-});
-
-if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
-  revealElements.forEach((element) => revealObserver.observe(element));
-} else {
-  revealElements.forEach((element) => element.classList.add("is-visible"));
-}
