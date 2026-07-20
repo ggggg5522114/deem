@@ -1,148 +1,188 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <title>فريق ديم الخيري | الرئيسية</title>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#073E42">
-<meta name="description" content="الموقع الرسمي لفريق ديم الخيري">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
+  <title>فريق ديم الخيري | نصنع أثرًا يدوم</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#073E42">
+  <meta name="description" content="الموقع الرسمي لفريق ديم الخيري، مبادرات وحالات وورش تصنع أثرًا مستدامًا في المجتمع العماني.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header class="site-header">
   <div class="container nav-wrap">
     <a class="brand" href="index.html" aria-label="الصفحة الرئيسية">
       <img src="images/logo.png" alt="شعار فريق ديم الخيري">
       <span>فريق ديم الخيري</span>
     </a>
+    <button class="theme-toggle" type="button" aria-label="تبديل الوضع الليلي" title="الوضع الليلي">🌙</button>
     <button class="menu-toggle" aria-label="فتح القائمة" aria-expanded="false">☰</button>
     <nav class="main-nav">
       <a href="index.html">الرئيسية</a>
       <a href="about.html">من نحن</a>
       <a href="cases.html">الحالات</a>
       <a href="workshops.html">الورش</a>
+      <a href="news.html">الأخبار</a>
+      <a href="gallery.html">المعرض</a>
       <a href="contact.html">تواصل معنا</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
+  <section class="video-hero">
+    <video autoplay muted loop playsinline preload="metadata" poster="images/hamad-case.jpeg" aria-hidden="true">
+      <source src="images/deem-intro.mp4" type="video/mp4">
+    </video>
+    <div class="video-hero-overlay"></div>
+    <div class="container video-hero-content reveal">
       <span class="eyebrow">العطاء يصنع الفرق</span>
-      <h1>معًا نمد يد العون ونصنع أثرًا يبقى</h1>
-      <p>نقدم مبادرات خيرية مبتكرة ومستدامة لدعم الأسر المتعففة وتعزيز ثقافة التطوع في المجتمع العماني.</p>
+      <h1>نحو مجتمعٍ يتكافل، وأثرٍ يستمر</h1>
+      <p>نحوّل الأفكار الخيرية إلى مبادرات عملية تدعم الأسر المتعففة، وتمكّن الشباب، وتنشر ثقافة التطوع.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="cases.html">ساهم في حالة الوالد حمد</a>
-        <a class="btn btn-outline" href="about.html">تعرّف علينا</a>
+        <a class="btn btn-primary" href="cases.html">ساهم في الحالة الحالية</a>
+        <a class="btn btn-outline" href="#impact">اكتشف أثر ديم</a>
+      </div>
+      <div class="hero-trust">
+        <span>✓ تبرع عبر منصة رسمية</span>
+        <span>✓ مبادرات مجتمعية</span>
+        <span>✓ أثر مستدام</span>
       </div>
     </div>
+    <a class="scroll-cue" href="#impact" aria-label="انتقل إلى قسم الأثر">⌄</a>
   </section>
 
-  <section class="section">
+  <section class="section impact-section" id="impact">
     <div class="container">
-      <div class="section-heading">
-        <span>حالتنا الحالية</span>
-        <h2>لنُغلق حالة الوالد حمد معًا</h2>
-        <p>كل مساهمة، مهما كانت قيمتها، تقرّبنا من تفريج كربته.</p>
+      <div class="section-heading reveal">
+        <span class="section-tag">أثر ديم</span>
+        <h2>أرقام تحكي رحلة العطاء</h2>
+        <p>قيم أولية قابلة للتحديث مع نمو الفريق وإنجاز مبادرات جديدة.</p>
       </div>
-
-      <article class="featured-case">
-        <div class="case-image">
-          <img src="images/hamad-case.jpeg" alt="حالة الوالد حمد">
-        </div>
-        <div class="case-content">
-          <span class="case-number">الحالة رقم 2</span>
-          <h3>الوالد حمد يطرق باب العون</h3>
-          <p>تجاوز الستين عامًا، وما زال ثقل الدين يرهق كاهله بعد تقاعده المرضي، إضافة إلى معاناته من تورم في فقرات الظهر ومرض السكري.</p>
-
-          <div class="amount-row">
-            <div><small>المبلغ المستهدف</small><strong>6,600 ر.ع</strong></div>
-            <div><small>تم جمعه</small><strong>1,237.6 ر.ع</strong></div>
-            <div><small>المتبقي</small><strong>5,362.4 ر.ع</strong></div>
-          </div>
-
-          <div class="progress" aria-label="نسبة جمع التبرعات 19%">
-            <div class="progress-bar" style="width:19%"></div>
-          </div>
-          <div class="progress-label"><span>19%</span><span>نقترب بكم من إغلاق الحالة</span></div>
-
-          <a class="btn btn-primary btn-block" href="cases.html">عرض تفاصيل الحالة والتبرع</a>
-        </div>
-      </article>
+      <div class="impact-grid">
+        <article class="impact-card reveal"><span>❤️</span><strong data-counter="2">0</strong><p>حالات خيرية</p></article>
+        <article class="impact-card reveal"><span>🎓</span><strong data-counter="1">0</strong><p>ورشة تدريبية</p></article>
+        <article class="impact-card reveal"><span>🌱</span><strong data-counter="3">0</strong><p>مبادرات مجتمعية</p></article>
+        <article class="impact-card reveal"><span>🤝</span><strong data-counter="1">0</strong><p>شراكة داعمة</p></article>
+      </div>
     </div>
   </section>
 
-
-  <section class="section workshop-highlight">
-    <div class="container workshop-banner">
-      <div class="workshop-copy">
-        <span class="section-tag">ورش فريق ديم</span>
-        <h2>ورشة صناعة الفيديو الإبداعي بالجوال وتطبيق CapCut</h2>
-        <p>تعلّم أساسيات تصوير الفيديو وصناعة المحتوى والمونتاج العملي بالجوال، وساهم في فك كربة.</p>
-        <div class="workshop-meta">
-          <span>الجمعة</span>
-          <span>4:30 عصرًا</span>
-          <span>مجمع صحار الرياضي</span>
-          <span>6 ر.ع</span>
-        </div>
-        <a class="btn btn-primary" href="workshops.html">عرض تفاصيل الورشة</a>
+  <section class="section current-case-section">
+    <div class="container case-platform reveal">
+      <div class="case-platform-media">
+        <img loading="lazy" src="images/hamad-case.jpeg" alt="حالة الوالد حمد">
+        <span class="urgent-badge">حالة طارئة</span>
       </div>
-      <div class="workshop-visual" aria-hidden="true">🎬</div>
+      <div class="case-platform-content">
+        <span class="section-tag">الحالة الحالية</span>
+        <h2>الوالد حمد يطرق باب العون</h2>
+        <p>تجاوز الستين عامًا، وما زال ثقل الدين يرهق كاهله بعد تقاعده المرضي ومعاناته من أمراض مزمنة.</p>
+
+        <div class="case-amounts">
+          <div><span>المستهدف</span><strong>6,600 ر.ع</strong></div>
+          <div><span>تم جمعه</span><strong>1,237.6 ر.ع</strong></div>
+          <div><span>المتبقي</span><strong>5,362.4 ر.ع</strong></div>
+        </div>
+
+        <div class="platform-progress" aria-label="تم جمع 19%">
+          <div class="platform-progress-head"><strong>19%</strong><span>نقترب بكم من إغلاق الحالة</span></div>
+          <div class="progress"><div class="progress-bar" style="width:19%"></div></div>
+        </div>
+
+        <div class="case-platform-actions">
+          <a class="btn btn-primary" href="https://api.daralatta.org/projects/wtx20zhuc61g7k7p7w4qev3d/share" target="_blank" rel="noopener noreferrer">تبرع الآن</a>
+          <a class="text-link" href="cases.html">تفاصيل الحالة والتحديثات ←</a>
+        </div>
+        <p class="secure-note">🔒 سيتم تحويلك إلى صفحة التبرع الرسمية في دار العطاء.</p>
+      </div>
     </div>
   </section>
 
-  <section class="section soft-bg">
-    <div class="container cards-grid">
-      <div class="info-card">
-        <span class="icon">✦</span>
-        <h3>مبادرات مبتكرة</h3>
-        <p>نصنع مبادرات خيرية تحدث أثرًا حقيقيًا ومستدامًا داخل المجتمع.</p>
+  <section class="section news-preview-section">
+    <div class="container">
+      <div class="section-heading section-heading-row reveal">
+        <div>
+          <span class="section-tag">آخر الأخبار</span>
+          <h2>كل جديد في فريق ديم</h2>
+        </div>
+        <a class="text-link" href="news.html">عرض جميع الأخبار ←</a>
       </div>
-      <div class="info-card">
-        <span class="icon">♡</span>
-        <h3>دعم الأسر المتعففة</h3>
-        <p>نسعى لمنح الأسر الأمل والاستقرار وتخفيف أعباء الحياة عنها.</p>
+      <div class="news-preview-grid">
+        <article class="modern-news-card reveal">
+          <img loading="lazy" src="images/hamad-case.jpeg" alt="حملة دعم الوالد حمد">
+          <div><span>يوليو 2026</span><h3>استمرار حملة دعم الوالد حمد</h3><p>ساهم بالنشر والتبرع للوصول إلى المبلغ المستهدف.</p><a href="cases.html">اقرأ المزيد</a></div>
+        </article>
+        <article class="modern-news-card reveal">
+          <img loading="lazy" src="images/goals.png" alt="ورشة صناعة الفيديو">
+          <div><span>24 يوليو 2026</span><h3>ورشة صناعة الفيديو الإبداعي</h3><p>تعلّم التصوير والمونتاج بالجوال وساهم في فك كربة.</p><a href="workshops.html">تفاصيل الورشة</a></div>
+        </article>
+        <article class="modern-news-card reveal">
+          <img loading="lazy" src="images/vision.png" alt="مبادرات فريق ديم">
+          <div><span>قريبًا</span><h3>مبادرات جديدة قيد الإعداد</h3><p>نعمل على برامج تطوعية وخيرية تحقق أثرًا مستدامًا.</p><a href="contact.html">اقترح مبادرة</a></div>
+        </article>
       </div>
-      <div class="info-card">
-        <span class="icon">🤝</span>
-        <h3>ثقافة التطوع</h3>
-        <p>نُمكّن الأفراد من المساهمة الفاعلة في صناعة الفرق وخدمة المجتمع.</p>
+    </div>
+  </section>
+
+  <section class="section gallery-preview-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="section-tag">من الميدان</span>
+        <h2>معرض المبادرات والأنشطة</h2>
+        <p>لحظات توثّق العمل، التعاون، والأثر الذي نصنعه معًا.</p>
       </div>
+      <div class="mosaic-gallery">
+        <a class="mosaic-item mosaic-large reveal" href="gallery.html"><img loading="lazy" src="images/hamad-case.jpeg" alt="مبادرة خيرية"><span>الحالات الخيرية</span></a>
+        <a class="mosaic-item reveal" href="gallery.html"><img loading="lazy" src="images/goals.png" alt="أهداف فريق ديم"><span>ورش ومهارات</span></a>
+        <a class="mosaic-item reveal" href="gallery.html"><img loading="lazy" src="images/vision.png" alt="رؤية فريق ديم"><span>أثر مستدام</span></a>
+      </div>
+      <a class="btn btn-dark gallery-more" href="gallery.html">استعرض المعرض كاملًا</a>
+    </div>
+  </section>
+
+  <section class="section events-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <span class="section-tag">الفعاليات القادمة</span>
+        <h2>تقويم ديم</h2>
+      </div>
+      <div class="events-list">
+        <article class="event-row reveal">
+          <div class="event-date"><strong>24</strong><span>يوليو</span></div>
+          <div class="event-info"><span>الجمعة • 4:30 عصرًا</span><h3>ورشة صناعة الفيديو الإبداعي بالجوال</h3><p>مجمع صحار الرياضي — قاعة المحاضرات</p></div>
+          <a class="btn btn-soft" href="workshops.html">التفاصيل</a>
+        </article>
+        <article class="event-row upcoming reveal">
+          <div class="event-date"><strong>قريبًا</strong><span>2026</span></div>
+          <div class="event-info"><span>قيد الإعداد</span><h3>مبادرة مجتمعية جديدة</h3><p>سيتم الإعلان عن التفاصيل عبر الموقع وحساب إنستغرام.</p></div>
+          <a class="btn btn-soft" href="https://www.instagram.com/deem.alatta/" target="_blank" rel="noopener noreferrer">تابعنا</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section home-cta-section">
+    <div class="container home-cta reveal">
+      <div><span class="section-tag">كن جزءًا من الأثر</span><h2>فكرة أو شراكة أو ساعة تطوع قد تصنع فرقًا كبيرًا</h2></div>
+      <a class="btn btn-primary" href="contact.html">تواصل مع فريق ديم</a>
     </div>
   </section>
 </main>
 
 <footer class="site-footer">
   <div class="container footer-grid">
-    <div>
-      <h3>فريق ديم الخيري</h3>
-      <p>معًا نصنع أثرًا مستدامًا ونمنح الأمل للأسر المتعففة.</p>
-    </div>
-    <div>
-      <h3>روابط سريعة</h3>
-      <a href="about.html">من نحن</a>
-      <a href="cases.html">الحالات الخيرية</a>
-      <a href="workshops.html">الورش</a>
-      <a href="contact.html">تواصل معنا</a>
-    </div>
+    <div><h3>فريق ديم الخيري</h3><p>معًا نصنع أثرًا مستدامًا ونمنح الأمل للأسر المتعففة.</p></div>
+    <div><h3>روابط سريعة</h3><a href="about.html">من نحن</a><a href="cases.html">الحالات الخيرية</a><a href="workshops.html">الورش</a><a href="news.html">الأخبار</a><a href="gallery.html">المعرض</a><a href="contact.html">تواصل معنا</a></div>
   </div>
   <p class="copyright">© <span id="year"></span> فريق ديم الخيري — جميع الحقوق محفوظة.</p>
 </footer>
+
+<a class="floating-donate" href="https://api.daralatta.org/projects/wtx20zhuc61g7k7p7w4qev3d/share" target="_blank" rel="noopener noreferrer" aria-label="تبرع الآن"><span>❤</span><strong>تبرع الآن</strong></a>
+<button class="back-to-top" type="button" aria-label="العودة إلى الأعلى">↑</button>
 <script src="script.js"></script>
-
-
-<a class="floating-donate" href="https://api.daralatta.org/projects/wtx20zhuc61g7k7p7w4qev3d/share" target="_blank" rel="noopener noreferrer" aria-label="تبرع الآن">
-  <span>❤</span>
-  <strong>تبرع الآن</strong>
-</a>
-
 </body>
 </html>

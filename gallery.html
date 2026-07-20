@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <title>معرض المبادرات | فريق ديم الخيري</title>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#073E42"><meta name="description" content="معرض صور مبادرات وأنشطة فريق ديم الخيري">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header"><div class="container nav-wrap">
+<a class="brand" href="index.html"><img src="images/logo.png" alt="شعار فريق ديم الخيري"><span>فريق ديم الخيري</span></a>
+<button class="theme-toggle" type="button" aria-label="تبديل الوضع الليلي">🌙</button><button class="menu-toggle" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+<nav class="main-nav"><a href="index.html">الرئيسية</a><a href="about.html">من نحن</a><a href="cases.html">الحالات</a><a href="workshops.html">الورش</a><a href="news.html">الأخبار</a><a href="gallery.html">المعرض</a><a href="contact.html">تواصل معنا</a></nav>
+</div></header>
+<main>
+<section class="page-hero gallery-hero"><div class="container reveal"><span class="eyebrow">لحظات من الأثر</span><h1>معرض ديم</h1><p>مساحة توثّق المبادرات، الورش، والقصص التي نصنعها مع المجتمع.</p></div></section>
+<section class="section"><div class="container">
+<div class="gallery-filters reveal" role="group" aria-label="تصفية الصور"><button class="active" data-gallery-filter="all">الكل</button><button data-gallery-filter="cases">الحالات</button><button data-gallery-filter="workshops">الورش</button><button data-gallery-filter="identity">هوية ديم</button></div>
+<div class="full-gallery">
+  <button class="gallery-card reveal" data-gallery-category="cases" data-lightbox-src="images/hamad-case.jpeg"><img loading="lazy" src="images/hamad-case.jpeg" alt="حالة خيرية"><span><strong>حالة الوالد حمد</strong><small>الحالات الخيرية</small></span></button>
+  <button class="gallery-card reveal" data-gallery-category="workshops" data-lightbox-src="images/goals.png"><img loading="lazy" src="images/goals.png" alt="ورشة ومهارات"><span><strong>المهارات تصنع أثرًا</strong><small>ورش ديم</small></span></button>
+  <button class="gallery-card reveal" data-gallery-category="identity" data-lightbox-src="images/vision.png"><img loading="lazy" src="images/vision.png" alt="رؤية فريق ديم"><span><strong>رؤية ديم</strong><small>هوية الفريق</small></span></button>
+  <button class="gallery-card reveal" data-gallery-category="identity" data-lightbox-src="images/logo.png"><img loading="lazy" src="images/logo.png" alt="شعار فريق ديم"><span><strong>هوية ديم البصرية</strong><small>هوية الفريق</small></span></button>
+</div>
+<div class="gallery-placeholder reveal"><span>📷</span><h2>المعرض جاهز لاستقبال صور المبادرات القادمة</h2><p>يمكن إضافة أي صورة جديدة إلى مجلد الصور ثم إدراجها كبطاقة جديدة في هذه الصفحة.</p></div>
+</div></section>
+</main>
+<div class="lightbox" data-lightbox aria-hidden="true"><button type="button" data-lightbox-close aria-label="إغلاق">×</button><img src="" alt="صورة مكبرة" data-lightbox-image></div>
+<footer class="site-footer"><div class="container footer-grid"><div><h3>فريق ديم الخيري</h3><p>معًا نصنع أثرًا مستدامًا ونمنح الأمل للأسر المتعففة.</p></div><div><h3>روابط سريعة</h3><a href="news.html">الأخبار</a><a href="cases.html">الحالات</a><a href="workshops.html">الورش</a><a href="contact.html">تواصل معنا</a></div></div><p class="copyright">© <span id="year"></span> فريق ديم الخيري — جميع الحقوق محفوظة.</p></footer>
+<a class="floating-donate" href="https://api.daralatta.org/projects/wtx20zhuc61g7k7p7w4qev3d/share" target="_blank" rel="noopener noreferrer"><span>❤</span><strong>تبرع الآن</strong></a>
+<button class="back-to-top" type="button" aria-label="العودة إلى الأعلى">↑</button><script src="script.js"></script>
+</body></html>

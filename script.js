@@ -99,3 +99,119 @@ if (nativeBtn) {
     }
   });
 }
+
+
+
+// ===== Modern Experience v4 =====
+const pageBody = document.body;
+const themeButton = document.querySelector(".theme-toggle");
+const storedTheme = localStorage.getItem("deem-theme");
+
+if (storedTheme === "dark") pageBody.classList.add("dark-mode");
+
+const syncThemeButton = () => {
+  if (!themeButton) return;
+  const dark = pageBody.classList.contains("dark-mode");
+  themeButton.textContent = dark ? "☀️" : "🌙";
+  themeButton.title = dark ? "الوضع النهاري" : "الوضع الليلي";
+};
+syncThemeButton();
+
+themeButton?.addEventListener("click", () => {
+  pageBody.classList.toggle("dark-mode");
+  localStorage.setItem("deem-theme", pageBody.classList.contains("dark-mode") ? "dark" : "light");
+  syncThemeButton();
+});
+
+const revealElements = document.querySelectorAll(".reveal");
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12 });
+  revealElements.forEach(element => revealObserver.observe(element));
+} else {
+  revealElements.forEach(element => element.classList.add("visible"));
+}
+
+const counterElements = document.querySelectorAll("[data-counter]");
+if (counterElements.length && "IntersectionObserver" in window) {
+  const counterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = Number(el.dataset.counter || 0);
+      const startedAt = performance.now();
+      const duration = 1000;
+      const animate = now => {
+        const progress = Math.min((now - startedAt) / duration, 1);
+        el.textContent = Math.round(target * progress).toLocaleString("ar-OM");
+        if (progress < 1) requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+      observer.unobserve(el);
+    });
+  }, { threshold: .55 });
+  counterElements.forEach(el => counterObserver.observe(el));
+}
+
+const topButton = document.querySelector(".back-to-top");
+if (topButton) {
+  const toggleTopButton = () => topButton.classList.toggle("show", window.scrollY > 500);
+  window.addEventListener("scroll", toggleTopButton, { passive: true });
+  toggleTopButton();
+  topButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
+const galleryFilters = document.querySelectorAll("[data-gallery-filter]");
+const galleryCards = document.querySelectorAll("[data-gallery-category]");
+galleryFilters.forEach(button => {
+  button.addEventListener("click", () => {
+    galleryFilters.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    const filter = button.dataset.galleryFilter;
+    galleryCards.forEach(card => {
+      card.hidden = filter !== "all" && card.dataset.galleryCategory !== filter;
+    });
+  });
+});
+
+const lightbox = document.querySelector("[data-lightbox]");
+const lightboxImage = document.querySelector("[data-lightbox-image]");
+const closeLightbox = () => {
+  if (!lightbox) return;
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+  pageBody.style.overflow = "";
+};
+galleryCards.forEach(card => {
+  card.addEventListener("click", () => {
+    if (!lightbox || !lightboxImage) return;
+    lightboxImage.src = card.dataset.lightboxSrc;
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+    pageBody.style.overflow = "hidden";
+  });
+});
+document.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
+lightbox?.addEventListener("click", event => {
+  if (event.target === lightbox) closeLightbox();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeLightbox();
+});
+
+// Pause the hero video when it is off screen to save mobile battery/data.
+const heroVideo = document.querySelector(".video-hero video");
+if (heroVideo && "IntersectionObserver" in window) {
+  const videoObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) heroVideo.play().catch(() => {});
+      else heroVideo.pause();
+    });
+  }, { threshold: .05 });
+  videoObserver.observe(heroVideo);
+}
