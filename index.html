@@ -33,6 +33,85 @@
 </header>
 
 <main>
+
+
+  <!-- نبض ديم: قصص تفاعلية بهوية الموقع -->
+  <section class="deem-stories" aria-labelledby="stories-title">
+    <div class="container">
+      <div class="stories-heading">
+        <div>
+          <span class="section-tag">جديد الفريق</span>
+          <h2 id="stories-title">نبض ديم</h2>
+        </div>
+        <p>آخر الحالات والورش والإنجازات في قصص قصيرة وسريعة.</p>
+      </div>
+
+      <div class="stories-rail" role="list" aria-label="قصص نبض ديم">
+        <button class="story-bubble" type="button" data-story="hamad" role="listitem" aria-label="فتح قصة حالة الوالد حمد">
+          <span class="story-ring"><span class="story-cover story-cover-hamad"><img src="images/hamad-case.jpeg" alt=""></span></span>
+          <strong>حالة حمد</strong>
+          <small>19% مكتمل</small>
+        </button>
+
+        <button class="story-bubble" type="button" data-story="workshop" role="listitem" aria-label="فتح قصة ورشة صناعة الفيديو">
+          <span class="story-ring"><span class="story-cover story-cover-workshop">🎬</span></span>
+          <strong>الورشة</strong>
+          <small>تعلّم وساهم</small>
+        </button>
+
+        <button class="story-bubble" type="button" data-story="impact" role="listitem" aria-label="فتح قصة أثر ديم">
+          <span class="story-ring"><span class="story-cover story-cover-impact">✦</span></span>
+          <strong>أثر ديم</strong>
+          <small>كل عطاء يصنع فرقًا</small>
+        </button>
+
+        <button class="story-bubble" type="button" data-story="volunteer" role="listitem" aria-label="فتح قصة التطوع">
+          <span class="story-ring"><span class="story-cover story-cover-volunteer">🤝</span></span>
+          <strong>التطوع</strong>
+          <small>كن جزءًا من الأثر</small>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- عارض القصص -->
+  <div class="story-viewer" data-story-viewer hidden aria-hidden="true">
+    <div class="story-backdrop" data-story-close></div>
+    <section class="story-panel" role="dialog" aria-modal="true" aria-label="عارض قصص نبض ديم">
+      <div class="story-progress" data-story-progress aria-hidden="true"></div>
+
+      <header class="story-header">
+        <div class="story-account">
+          <img src="images/logo.png" alt="شعار فريق ديم الخيري">
+          <div><strong>نبض ديم</strong><span data-story-date>الآن</span></div>
+        </div>
+        <div class="story-tools">
+          <button type="button" data-story-pause aria-label="إيقاف القصة مؤقتًا">Ⅱ</button>
+          <button type="button" data-story-close aria-label="إغلاق القصة">×</button>
+        </div>
+      </header>
+
+      <div class="story-stage" data-story-stage>
+        <div class="story-media" data-story-media></div>
+        <div class="story-gradient"></div>
+        <div class="story-copy">
+          <span data-story-kicker></span>
+          <h3 data-story-title></h3>
+          <p data-story-text></p>
+          <a class="btn btn-primary story-action" data-story-action href="#">ساهم الآن</a>
+        </div>
+
+        <button class="story-nav story-prev" type="button" data-story-prev aria-label="القصة السابقة">‹</button>
+        <button class="story-nav story-next" type="button" data-story-next aria-label="القصة التالية">›</button>
+      </div>
+
+      <footer class="story-footer">
+        <button type="button" data-story-share>مشاركة القصة</button>
+        <span>اسحب أو اضغط للانتقال</span>
+      </footer>
+    </section>
+  </div>
+
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content">

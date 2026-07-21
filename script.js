@@ -118,3 +118,233 @@ document.addEventListener("click", (event) => {
     menuButton.setAttribute("aria-expanded", "false");
   }
 });
+
+
+// ===== نبض ديم: عارض القصص التفاعلي =====
+(() => {
+  const viewer = document.querySelector('[data-story-viewer]');
+  const triggers = [...document.querySelectorAll('[data-story]')];
+  if (!viewer || !triggers.length) return;
+
+  const donationUrl = 'https://api.daralatta.org/projects/wtx20zhuc61g7k7p7w4qev3d/share';
+  const stories = {
+    hamad: [
+      {
+        kicker: 'الحالة رقم 2',
+        title: 'الوالد حمد يطرق باب العون',
+        text: 'تجاوز الستين عامًا، وما زال ثقل الدين يرهق كاهله بعد تقاعده المرضي.',
+        image: 'images/hamad-case.jpeg',
+        action: 'اعرف تفاصيل الحالة', href: 'cases.html'
+      },
+      {
+        kicker: 'تحديث الحالة',
+        title: 'تم جمع 19% من المبلغ',
+        text: 'بلغت المساهمات 1,237.6 ر.ع، وبعونكم نقترب أكثر من تفريج كربته.',
+        gradient: 'linear-gradient(145deg,#203B62,#111D34)',
+        action: 'ساهم الآن', href: donationUrl
+      },
+      {
+        kicker: 'المتبقي',
+        title: '5,362.4 ر.ع فقط',
+        text: 'حتى المساهمة الصغيرة تصنع فرقًا كبيرًا عندما نجتمع على الخير.',
+        gradient: 'linear-gradient(145deg,#718F84,#243D38)',
+        action: 'تبرع للحالة', href: donationUrl
+      }
+    ],
+    workshop: [
+      {
+        kicker: 'ورش فريق ديم',
+        title: 'صناعة الفيديو الإبداعي بالجوال',
+        text: 'تعلّم التصوير والمونتاج العملي باستخدام تطبيق CapCut.',
+        gradient: 'linear-gradient(145deg,#D96C5F,#682D37)',
+        action: 'تفاصيل الورشة', href: 'workshops.html'
+      },
+      {
+        kicker: 'تعلّم وساهم',
+        title: 'رسوم الورشة 6 ر.ع',
+        text: 'تجربة تعليمية جميلة، ويساهم ريعها في دعم الحالة الخيرية.',
+        gradient: 'linear-gradient(145deg,#C98263,#253554)',
+        action: 'عرض الموعد والمكان', href: 'workshops.html'
+      }
+    ],
+    impact: [
+      {
+        kicker: 'أثر مستدام',
+        title: 'كل عطاء يبدأ بخطوة',
+        text: 'نجمع بين المبادرات المبتكرة والعمل التطوعي لدعم الأسر المتعففة.',
+        gradient: 'linear-gradient(145deg,#708F82,#183A35)',
+        action: 'تعرّف على ديم', href: 'about.html'
+      },
+      {
+        kicker: 'معًا نصنع الفرق',
+        title: 'أنت جزء من هذا الأثر',
+        text: 'شارك الحالة مع عائلتك وأصدقائك، فقد تصل إلى من يكون سببًا في إغلاقها.',
+        gradient: 'linear-gradient(145deg,#2C456E,#111D34)',
+        action: 'مشاركة الحالة', href: 'cases.html#share'
+      }
+    ],
+    volunteer: [
+      {
+        kicker: 'ثقافة التطوع',
+        title: 'كن جزءًا من فريق يصنع الأمل',
+        text: 'المهارة والوقت والكلمة الطيبة كلها أشكال من العطاء.',
+        gradient: 'linear-gradient(145deg,#5E789F,#1D2C48)',
+        action: 'تواصل معنا', href: 'contact.html'
+      }
+    ]
+  };
+
+  const media = viewer.querySelector('[data-story-media]');
+  const progress = viewer.querySelector('[data-story-progress]');
+  const title = viewer.querySelector('[data-story-title]');
+  const text = viewer.querySelector('[data-story-text]');
+  const kicker = viewer.querySelector('[data-story-kicker]');
+  const action = viewer.querySelector('[data-story-action]');
+  const pauseBtn = viewer.querySelector('[data-story-pause]');
+  const shareBtn = viewer.querySelector('[data-story-share]');
+
+  let groupKey = '';
+  let current = 0;
+  let timer = null;
+  let startedAt = 0;
+  let remaining = 6000;
+  let paused = false;
+  let touchStartX = 0;
+
+  const viewed = new Set(JSON.parse(localStorage.getItem('deemViewedStories') || '[]'));
+  triggers.forEach(btn => { if (viewed.has(btn.dataset.story)) btn.classList.add('viewed'); });
+
+  function buildProgress() {
+    progress.innerHTML = stories[groupKey].map(() => '<span><i></i></span>').join('');
+  }
+
+  function animateProgress(duration) {
+    const bars = [...progress.querySelectorAll('i')];
+    bars.forEach((bar, index) => {
+      bar.style.transition = 'none';
+      bar.style.width = index < current ? '100%' : '0%';
+    });
+    requestAnimationFrame(() => {
+      const bar = bars[current];
+      if (!bar) return;
+      bar.style.transition = `width ${duration}ms linear`;
+      bar.style.width = '100%';
+    });
+  }
+
+  function render() {
+    const item = stories[groupKey][current];
+    media.classList.add('is-changing');
+    setTimeout(() => {
+      media.style.backgroundImage = item.image ? `url("${item.image}")` : (item.gradient || 'linear-gradient(145deg,#1E2F4F,#101827)');
+      media.style.backgroundColor = item.image ? '#111827' : 'transparent';
+      media.classList.remove('is-changing');
+    }, 110);
+    kicker.textContent = item.kicker;
+    title.textContent = item.title;
+    text.textContent = item.text;
+    action.textContent = item.action;
+    action.href = item.href;
+    if (item.href.startsWith('http')) {
+      action.target = '_blank'; action.rel = 'noopener noreferrer';
+    } else {
+      action.removeAttribute('target'); action.removeAttribute('rel');
+    }
+    remaining = 6000;
+    paused = false;
+    pauseBtn.textContent = 'Ⅱ';
+    startTimer();
+  }
+
+  function startTimer() {
+    clearTimeout(timer);
+    startedAt = Date.now();
+    animateProgress(remaining);
+    timer = setTimeout(next, remaining);
+  }
+
+  function pause() {
+    if (paused) {
+      paused = false; pauseBtn.textContent = 'Ⅱ'; startTimer(); return;
+    }
+    paused = true;
+    clearTimeout(timer);
+    remaining -= Date.now() - startedAt;
+    const bar = progress.querySelectorAll('i')[current];
+    if (bar) {
+      const width = getComputedStyle(bar).width;
+      bar.style.transition = 'none';
+      bar.style.width = width;
+    }
+    pauseBtn.textContent = '▶';
+  }
+
+  function next() {
+    if (current < stories[groupKey].length - 1) {
+      current++; render();
+    } else {
+      closeViewer();
+    }
+  }
+
+  function prev() {
+    if (current > 0) { current--; render(); }
+    else { current = 0; render(); }
+  }
+
+  function openViewer(key) {
+    groupKey = key; current = 0;
+    viewed.add(key);
+    localStorage.setItem('deemViewedStories', JSON.stringify([...viewed]));
+    triggers.find(b => b.dataset.story === key)?.classList.add('viewed');
+    buildProgress();
+    viewer.hidden = false;
+    viewer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('story-open');
+    render();
+    viewer.querySelector('[data-story-close]')?.focus();
+  }
+
+  function closeViewer() {
+    clearTimeout(timer);
+    viewer.hidden = true;
+    viewer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('story-open');
+  }
+
+  triggers.forEach(btn => btn.addEventListener('click', () => openViewer(btn.dataset.story)));
+  viewer.querySelectorAll('[data-story-close]').forEach(btn => btn.addEventListener('click', closeViewer));
+  viewer.querySelector('[data-story-next]')?.addEventListener('click', next);
+  viewer.querySelector('[data-story-prev]')?.addEventListener('click', prev);
+  pauseBtn?.addEventListener('click', pause);
+
+  shareBtn?.addEventListener('click', async () => {
+    const item = stories[groupKey][current];
+    const payload = { title: item.title, text: item.text, url: action.href };
+    try {
+      if (navigator.share) await navigator.share(payload);
+      else {
+        await navigator.clipboard.writeText(`${item.title}\n${item.text}\n${action.href}`);
+        shareBtn.textContent = 'تم نسخ الرابط ✓';
+        setTimeout(() => shareBtn.textContent = 'مشاركة القصة', 1800);
+      }
+    } catch (_) {}
+  });
+
+  viewer.querySelector('[data-story-stage]')?.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, {passive:true});
+  viewer.querySelector('[data-story-stage]')?.addEventListener('touchend', e => {
+    const delta = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) < 45) return;
+    delta > 0 ? prev() : next();
+  }, {passive:true});
+
+  document.addEventListener('keydown', e => {
+    if (viewer.hidden) return;
+    if (e.key === 'Escape') closeViewer();
+    if (e.key === 'ArrowLeft') next();
+    if (e.key === 'ArrowRight') prev();
+    if (e.key === ' ') { e.preventDefault(); pause(); }
+  });
+})();
