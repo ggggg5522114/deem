@@ -348,3 +348,174 @@ document.addEventListener("click", (event) => {
     if (e.key === ' ') { e.preventDefault(); pause(); }
   });
 })();
+
+
+// ===== DEEM V8: تجربة متغيرة حسب الوقت + 300 آية + إشعارات + أصوات =====
+(() => {
+  const hour = new Date().getHours();
+  const body = document.body;
+  let greeting = "مرحبًا بك";
+  let period = "afternoon";
+
+  if (hour >= 5 && hour < 12) {
+    greeting = "صباح الخير، جعل الله يومك أثرًا جميلًا";
+    period = "morning";
+  } else if (hour >= 12 && hour < 17) {
+    greeting = "طاب يومك، معًا نصنع أثرًا لا يزول";
+    period = "afternoon";
+  } else if (hour >= 17 && hour < 21) {
+    greeting = "مساء الخير، عطاؤك يصنع الأمل";
+    period = "evening";
+  } else {
+    greeting = "ليلة هادئة مليئة بالخير والعطاء";
+    period = "night";
+  }
+  body.classList.add(`time-${period}`);
+
+  const greetingEl = document.querySelector("[data-daily-greeting]");
+  if (greetingEl) greetingEl.textContent = greeting;
+
+  // نظام صوت خفيف باستخدام Web Audio، دون ملفات صوتية خارجية.
+  let soundsEnabled = localStorage.getItem("deemSounds") !== "off";
+  const soundToggle = document.querySelector("[data-sound-toggle]");
+  let audioContext = null;
+
+  function softTone(frequency = 560, duration = 0.08, volume = 0.025) {
+    if (!soundsEnabled) return;
+    try {
+      audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+      gain.gain.setValueAtTime(0, audioContext.currentTime);
+      gain.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + duration);
+    } catch (_) {}
+  }
+
+  function updateSoundButton() {
+    if (!soundToggle) return;
+    soundToggle.textContent = soundsEnabled ? "🔊" : "🔇";
+    soundToggle.classList.toggle("is-muted", !soundsEnabled);
+    soundToggle.setAttribute("aria-label", soundsEnabled ? "إيقاف أصوات الموقع" : "تشغيل أصوات الموقع");
+  }
+  updateSoundButton();
+
+  soundToggle?.addEventListener("click", () => {
+    soundsEnabled = !soundsEnabled;
+    localStorage.setItem("deemSounds", soundsEnabled ? "on" : "off");
+    updateSoundButton();
+    if (soundsEnabled) softTone(650, .1, .03);
+  });
+
+  // تشغيل صوت خفيف عند فتح أي قصة.
+  document.querySelectorAll("[data-story]").forEach(button => {
+    button.addEventListener("click", () => {
+      softTone(520, .075, .022);
+      setTimeout(() => softTone(690, .09, .018), 65);
+    });
+  });
+
+  // إشعارات مباشرة داخل الموقع.
+  const notifications = document.querySelector("[data-notifications]");
+  const notificationTemplate = document.querySelector("#notification-template");
+
+  function showNotification(title, message, timeout = 6500) {
+    if (!notifications || !notificationTemplate) return;
+    const toast = notificationTemplate.content.firstElementChild.cloneNode(true);
+    toast.querySelector("[data-toast-title]").textContent = title;
+    toast.querySelector("[data-toast-text]").textContent = message;
+
+    const close = () => {
+      toast.classList.add("is-leaving");
+      setTimeout(() => toast.remove(), 280);
+    };
+    toast.querySelector("[data-toast-close]").addEventListener("click", close);
+    notifications.appendChild(toast);
+    softTone(440, .07, .015);
+    setTimeout(close, timeout);
+  }
+
+  const lastWelcome = Number(localStorage.getItem("deemWelcomeShown") || 0);
+  if (Date.now() - lastWelcome > 12 * 60 * 60 * 1000) {
+    setTimeout(() => {
+      showNotification("أهلًا بك في فريق ديم", greeting);
+      localStorage.setItem("deemWelcomeShown", String(Date.now()));
+    }, 1100);
+  }
+
+  setTimeout(() => {
+    showNotification("تحديث الحالة", "تم جمع 19% من حالة الوالد حمد، وكل مساهمة تقرّبنا من إغلاقها.");
+  }, 8500);
+
+  // آية يومية من دورة ثابتة تضم 300 آية.
+  // نستخدم الأرقام العالمية للآيات 1 إلى 300، ويتغير الاختيار بحسب رقم اليوم.
+  const dailyText = document.querySelector("[data-daily-text]");
+  const dailySource = document.querySelector("[data-daily-source]");
+  const dailyShare = document.querySelector("[data-daily-share]");
+  const startOfYear = new Date(new Date().getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((new Date() - startOfYear) / 86400000);
+  const ayahGlobalNumber = ((dayOfYear - 1) % 300) + 1;
+
+  const fallbackAyat = [
+    {text:"إِنَّ مَعَ الْعُسْرِ يُسْرًا", source:"سورة الشرح — الآية 6"},
+    {text:"وَمَا تَفْعَلُوا مِنْ خَيْرٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ", source:"سورة البقرة — الآية 215"},
+    {text:"إِنَّ اللَّهَ مَعَ الصَّابِرِينَ", source:"سورة البقرة — الآية 153"},
+    {text:"وَقُلْ رَبِّ زِدْنِي عِلْمًا", source:"سورة طه — الآية 114"},
+    {text:"فَاذْكُرُونِي أَذْكُرْكُمْ", source:"سورة البقرة — الآية 152"},
+    {text:"إِنَّ رَبِّي قَرِيبٌ مُجِيبٌ", source:"سورة هود — الآية 61"},
+    {text:"وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ", source:"سورة آل عمران — الآية 134"}
+  ];
+
+  let currentDaily = fallbackAyat[dayOfYear % fallbackAyat.length];
+
+  function renderDaily(item) {
+    currentDaily = item;
+    if (dailyText) dailyText.textContent = `﴿ ${item.text} ﴾`;
+    if (dailySource) dailySource.textContent = item.source;
+  }
+  renderDaily(currentDaily);
+
+  fetch(`https://api.alquran.cloud/v1/ayah/${ayahGlobalNumber}/quran-uthmani`)
+    .then(response => {
+      if (!response.ok) throw new Error("Unable to load daily verse");
+      return response.json();
+    })
+    .then(({data}) => {
+      renderDaily({
+        text: data.text,
+        source: `سورة ${data.surah.name} — الآية ${data.numberInSurah} • الآية ${ayahGlobalNumber} من دورة 300`
+      });
+      localStorage.setItem("deemDailyAyah", JSON.stringify({
+        date: new Date().toDateString(),
+        number: ayahGlobalNumber,
+        text: data.text,
+        source: `سورة ${data.surah.name} — الآية ${data.numberInSurah} • الآية ${ayahGlobalNumber} من دورة 300`
+      }));
+    })
+    .catch(() => {
+      try {
+        const cached = JSON.parse(localStorage.getItem("deemDailyAyah") || "null");
+        if (cached?.number === ayahGlobalNumber) renderDaily(cached);
+      } catch (_) {}
+    });
+
+  dailyShare?.addEventListener("click", async () => {
+    const content = `﴿ ${currentDaily.text} ﴾\n${currentDaily.source}\nفريق ديم الخيري`;
+    try {
+      if (navigator.share) {
+        await navigator.share({title:"آية اليوم — فريق ديم", text:content});
+      } else {
+        await navigator.clipboard.writeText(content);
+        dailyShare.textContent = "تم النسخ ✓";
+        softTone(720, .1, .025);
+        setTimeout(() => dailyShare.textContent = "مشاركة الآية", 1800);
+      }
+    } catch (_) {}
+  });
+})();

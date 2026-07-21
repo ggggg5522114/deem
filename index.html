@@ -15,6 +15,24 @@
 </head>
 <body>
 
+  <!-- شريط أخبار ديم -->
+  <div class="deem-breaking" role="region" aria-label="آخر أخبار فريق ديم">
+    <div class="container breaking-inner">
+      <span class="breaking-label"><i></i> آخر الأخبار</span>
+      <div class="breaking-window">
+        <div class="breaking-track" data-breaking-track>
+          <a href="cases.html">تم جمع 19% من حالة الوالد حمد، وبعونكم يكتمل الأثر</a>
+          <span>•</span>
+          <a href="workshops.html">التسجيل في ورشة صناعة الفيديو الإبداعي بالجوال متاح الآن</a>
+          <span>•</span>
+          <a href="contact.html">كن جزءًا من فريق ديم وساهم بوقتك ومهارتك</a>
+        </div>
+      </div>
+      <button class="sound-toggle" type="button" data-sound-toggle aria-label="تشغيل أو إيقاف أصوات الموقع" title="أصوات الموقع">🔊</button>
+    </div>
+  </div>
+
+
 <header class="site-header">
   <div class="container nav-wrap">
     <a class="brand" href="index.html" aria-label="الصفحة الرئيسية">
@@ -111,6 +129,22 @@
       </footer>
     </section>
   </div>
+
+  <!-- آية اليوم: تتغير تلقائيًا ضمن دورة من 300 آية -->
+  <section class="daily-inspiration" aria-labelledby="daily-title">
+    <div class="container">
+      <article class="daily-card">
+        <div class="daily-orbit" aria-hidden="true"><span>✦</span></div>
+        <div class="daily-content">
+          <span class="section-tag" data-daily-greeting>رسالة اليوم</span>
+          <h2 id="daily-title">آية اليوم</h2>
+          <blockquote data-daily-text>﴿ إِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾</blockquote>
+          <p data-daily-source>سورة الشرح — الآية 6</p>
+        </div>
+        <button type="button" class="daily-share" data-daily-share>مشاركة الآية</button>
+      </article>
+    </div>
+  </section>
 
   <section class="hero">
     <div class="hero-overlay"></div>
@@ -222,6 +256,21 @@
   <span>❤</span>
   <strong>تبرع الآن</strong>
 </a>
+
+
+  <!-- إشعارات الموقع -->
+  <div class="deem-notifications" data-notifications aria-live="polite" aria-atomic="true"></div>
+
+  <template id="notification-template">
+    <article class="deem-toast">
+      <span class="toast-icon">✦</span>
+      <div>
+        <strong data-toast-title></strong>
+        <p data-toast-text></p>
+      </div>
+      <button type="button" data-toast-close aria-label="إغلاق الإشعار">×</button>
+    </article>
+  </template>
 
 </body>
 </html>

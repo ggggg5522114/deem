@@ -1522,3 +1522,215 @@ body.story-open{overflow:hidden}
   .story-mobile-hint{display:none}
   .story-desktop-hint{display:inline}
 }
+
+
+/* =========================================================
+   DEEM V8 — الوقت، آية اليوم، الأخبار، الإشعارات والأصوات
+   ========================================================= */
+:root{
+  --time-glow:rgba(217,108,95,.16);
+  --time-sky:#F7F4EF;
+}
+body{
+  transition:background-color .6s ease,color .4s ease;
+  background:
+    radial-gradient(circle at 8% 8%,var(--time-glow),transparent 30%),
+    var(--time-sky);
+}
+body.time-morning{--time-glow:rgba(239,184,104,.20);--time-sky:#FFF9EF}
+body.time-afternoon{--time-glow:rgba(217,108,95,.16);--time-sky:#F7F4EF}
+body.time-evening{--time-glow:rgba(92,116,153,.17);--time-sky:#F2F4F8}
+body.time-night{--time-glow:rgba(47,65,98,.20);--time-sky:#EEF1F6}
+
+.deem-breaking{
+  position:relative;
+  z-index:1200;
+  background:linear-gradient(90deg,var(--primary-dark),var(--primary));
+  color:white;
+  min-height:42px;
+  overflow:hidden;
+}
+.breaking-inner{
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+.breaking-label{
+  flex:none;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-family:"Noto Kufi Arabic",sans-serif;
+  font-size:.73rem;
+  font-weight:800;
+  color:#fff;
+}
+.breaking-label i{
+  width:8px;height:8px;border-radius:50%;
+  background:#FF8F82;
+  box-shadow:0 0 0 0 rgba(255,143,130,.7);
+  animation:breakingPulse 1.6s infinite;
+}
+@keyframes breakingPulse{
+  70%{box-shadow:0 0 0 8px rgba(255,143,130,0)}
+  100%{box-shadow:0 0 0 0 rgba(255,143,130,0)}
+}
+.breaking-window{
+  min-width:0;
+  flex:1;
+  overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+}
+.breaking-track{
+  width:max-content;
+  display:flex;
+  align-items:center;
+  gap:26px;
+  white-space:nowrap;
+  animation:breakingMove 28s linear infinite;
+  will-change:transform;
+}
+.breaking-track:hover{animation-play-state:paused}
+.breaking-track a{
+  color:rgba(255,255,255,.92);
+  text-decoration:none;
+  font-size:.79rem;
+}
+.breaking-track a:hover{color:white;text-decoration:underline}
+@keyframes breakingMove{
+  from{transform:translateX(-8%)}
+  to{transform:translateX(68%)}
+}
+.sound-toggle{
+  flex:none;
+  width:34px;height:34px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:10px;
+  background:rgba(255,255,255,.1);
+  color:white;
+  cursor:pointer;
+  font-size:.9rem;
+}
+.sound-toggle.is-muted{opacity:.55}
+
+.daily-inspiration{padding:36px 0 12px}
+.daily-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:96px 1fr auto;
+  align-items:center;
+  gap:24px;
+  padding:30px 32px;
+  border:1px solid rgba(30,47,79,.1);
+  border-radius:28px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,255,255,.75)),
+    radial-gradient(circle at 80% 20%,var(--time-glow),transparent 45%);
+  box-shadow:0 18px 48px rgba(20,33,58,.09);
+  overflow:hidden;
+}
+.daily-card::after{
+  content:"";
+  position:absolute;
+  inset:auto -70px -100px auto;
+  width:220px;height:220px;
+  border:1px solid rgba(30,47,79,.08);
+  border-radius:50%;
+}
+.daily-orbit{
+  width:86px;height:86px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  color:white;
+  font-size:1.8rem;
+  background:linear-gradient(145deg,var(--primary),var(--accent));
+  box-shadow:0 12px 30px rgba(30,47,79,.2);
+}
+.daily-orbit span{animation:dailyFloat 3s ease-in-out infinite}
+@keyframes dailyFloat{50%{transform:translateY(-5px) rotate(8deg)}}
+.daily-content h2{margin:4px 0 10px;font-size:1.45rem;color:var(--primary)}
+.daily-content blockquote{
+  margin:0;
+  font-family:"Noto Kufi Arabic",sans-serif;
+  color:var(--text);
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  line-height:2;
+}
+.daily-content p{margin:8px 0 0;color:var(--muted);font-size:.84rem}
+.daily-share{
+  position:relative;z-index:2;
+  min-height:44px;
+  padding:0 17px;
+  border:1px solid rgba(30,47,79,.14);
+  border-radius:13px;
+  background:white;
+  color:var(--primary);
+  font-family:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+.daily-share:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+
+.deem-notifications{
+  position:fixed;
+  z-index:10000;
+  top:64px;
+  left:20px;
+  width:min(390px,calc(100vw - 32px));
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  pointer-events:none;
+}
+.deem-toast{
+  pointer-events:auto;
+  display:grid;
+  grid-template-columns:42px 1fr 30px;
+  align-items:start;
+  gap:11px;
+  padding:15px;
+  color:var(--text);
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(30,47,79,.1);
+  border-radius:18px;
+  box-shadow:0 18px 50px rgba(20,33,58,.2);
+  backdrop-filter:blur(18px);
+  animation:toastIn .4s cubic-bezier(.2,.8,.2,1) both;
+}
+.deem-toast.is-leaving{animation:toastOut .3s ease both}
+.toast-icon{
+  width:42px;height:42px;border-radius:13px;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,var(--primary),var(--accent));
+  color:white;
+}
+.deem-toast strong{display:block;color:var(--primary);font-size:.88rem;margin-bottom:3px}
+.deem-toast p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.7}
+.deem-toast button{
+  border:0;background:transparent;color:var(--muted);
+  cursor:pointer;font-size:1.2rem;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-24px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateX(-20px) scale(.96)}}
+
+@media(max-width:800px){
+  .breaking-inner{gap:9px}
+  .breaking-label{font-size:.67rem}
+  .breaking-track{animation-duration:22s}
+  .sound-toggle{width:31px;height:31px}
+  .daily-inspiration{padding-top:24px}
+  .daily-card{
+    grid-template-columns:62px 1fr;
+    gap:15px;
+    padding:22px 18px;
+    border-radius:22px;
+  }
+  .daily-orbit{width:60px;height:60px;font-size:1.25rem}
+  .daily-share{grid-column:1/-1;width:100%}
+  .daily-content blockquote{font-size:.96rem}
+  .deem-notifications{top:53px;left:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .breaking-track,.breaking-label i,.daily-orbit span{animation:none}
+}
