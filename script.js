@@ -99,3 +99,22 @@ if (nativeBtn) {
     }
   });
 }
+
+
+// ===== تحسينات واجهة Deem Signature V5 =====
+const currentPage = window.location.pathname.split("/").pop() || "index.html";
+document.querySelectorAll(".main-nav a").forEach((link) => {
+  const href = link.getAttribute("href");
+  if (href === currentPage) {
+    link.classList.add("active");
+    link.setAttribute("aria-current", "page");
+  }
+});
+
+document.addEventListener("click", (event) => {
+  if (!nav || !menuButton || window.innerWidth > 768) return;
+  if (!nav.contains(event.target) && !menuButton.contains(event.target)) {
+    nav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+  }
+});
