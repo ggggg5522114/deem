@@ -1400,3 +1400,125 @@ body.story-open{overflow:hidden}
   .story-nav{opacity:.15;width:35%;height:60%;top:50%;background:transparent;font-size:0}
   .story-prev{right:0}.story-next{left:0}
 }
+
+
+/* =========================================================
+   V7.1 — تحسين ظهور نبض ديم على اللابتوب والشاشات الكبيرة
+   ========================================================= */
+@media (min-width: 801px){
+  .deem-stories{
+    padding:38px 0 32px;
+  }
+
+  .stories-heading{
+    align-items:center;
+    margin-bottom:25px;
+  }
+
+  .stories-heading h2{
+    font-size:2rem;
+  }
+
+  .stories-heading p{
+    max-width:500px;
+    text-align:left;
+    font-size:1rem;
+  }
+
+  .stories-rail{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(150px,1fr));
+    gap:18px;
+    overflow:visible;
+    padding:4px 0 8px;
+  }
+
+  .story-bubble{
+    width:100%;
+    min-height:174px;
+    padding:20px 14px 16px;
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:rgba(255,255,255,.78);
+    box-shadow:var(--shadow-sm);
+    transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;
+  }
+
+  .story-bubble:hover{
+    transform:translateY(-7px);
+    box-shadow:var(--shadow);
+    border-color:rgba(217,108,95,.28);
+  }
+
+  .story-bubble:focus-visible{
+    outline:3px solid rgba(217,108,95,.45);
+    outline-offset:4px;
+  }
+
+  .story-ring{
+    width:92px;
+    height:92px;
+  }
+
+  .story-bubble strong{
+    margin-top:7px;
+    font-size:.88rem;
+  }
+
+  .story-bubble small{
+    display:block;
+    font-size:.76rem;
+  }
+
+  .story-panel{
+    width:min(460px,calc(100vw - 80px));
+    height:min(790px,calc(100vh - 54px));
+  }
+
+  .story-nav{
+    opacity:0;
+    transition:opacity .2s ease,background .2s ease,transform .2s ease;
+  }
+
+  .story-panel:hover .story-nav,
+  .story-nav:focus-visible{
+    opacity:.92;
+  }
+
+  .story-nav:hover{
+    background:rgba(255,255,255,.18);
+  }
+
+  .story-prev:hover{
+    transform:translateY(-50%) translateX(3px);
+  }
+
+  .story-next:hover{
+    transform:translateY(-50%) translateX(-3px);
+  }
+
+  .story-tools button:hover{
+    background:rgba(255,255,255,.18);
+  }
+
+  .story-footer button:hover{
+    text-decoration:underline;
+  }
+}
+
+@media (min-width: 1200px){
+  .stories-rail{
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+  }
+
+  .story-bubble{
+    min-height:185px;
+  }
+}
+
+.story-desktop-hint{display:none}
+@media(min-width:801px){
+  .story-mobile-hint{display:none}
+  .story-desktop-hint{display:inline}
+}
